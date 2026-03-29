@@ -18,9 +18,11 @@
         <div class="col">
           <div
             class="card h-100 shadow-sm border-0"
-            [style.backgroundColor]="
-              cour.seats == 0 ? '#f8d7da' : cour.seats <= 2 ? '#fff3cd' : '#ffffff'
-            "
+            [ngClass]="{
+              'card-full': cour.seats == 0,
+              'card-almost-full': cour.seats > 0 && cour.seats <= 2,
+              'card-available': cour.seats > 2,
+            }"
           >
             <img
               [src]="cour.Image"
@@ -36,7 +38,11 @@
               <p class="small text-muted mb-2">Instructor: {{ cour.instructor }}</p>
 
               <div class="mt-auto">
-                <p class="fw-bold text-success mb-2">${{ cour.price }}</p>
+                <span class="text-muted text-decoration-line-through small me-2">
+                  ${{ cour.price }}
+                </span>
+
+                <span class="fw-bold text-success"> ${{ cour.price | discount: 0.2 }} </span>
 
                 @if (cour.seats == 0) {
                   <p class="text-danger fw-bold small mb-2 text-uppercase">Course Full</p>
