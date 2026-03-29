@@ -3,11 +3,9 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgClass } from '@angular/common';
-import { DiscountPipe } from '../../pipes/discount-pipe';
-import { ProcessingButton } from '../../directives/processing-button'; 
 @Component({
   selector: 'app-courses',
-  imports:[CommonModule, FormsModule, NgClass, DiscountPipe, ProcessingButton],
+  imports:[CommonModule, FormsModule, NgClass],
   templateUrl: './courses.html',
   styleUrl: './courses.css',
 })
