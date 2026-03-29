@@ -18,16 +18,13 @@
         <div class="col">
           <div
             class="card h-100 shadow-sm border-0"
-            [style.backgroundColor]="
-              cour.seats == 0 ? '#f8d7da' : cour.seats <= 2 ? '#fff3cd' : '#ffffff'
-            "
+            [ngClass]="{
+              'bg-danger-subtle': cour.seats == 0,
+              'bg-warning-subtle': cour.seats > 0 && cour.seats <= 2,
+              'bg-white': cour.seats > 2,
+            }"
           >
-            <img
-              [src]="cour.Image"
-              class="card-img-top"
-              [alt]="cour.title"
-              style="height: 150px; object-fit: cover"
-            />
+            <img [src]="cour.Image" class="card-img-top" style="height: 150px; object-fit: cover" />
 
             <div class="card-body d-flex flex-column p-3">
               <h6 class="card-title fw-bold mb-1" [class.text-danger]="cour.seats == 0">
@@ -36,7 +33,11 @@
               <p class="small text-muted mb-2">Instructor: {{ cour.instructor }}</p>
 
               <div class="mt-auto">
-                <p class="fw-bold text-success mb-2">${{ cour.price }}</p>
+                <span class="text-muted text-decoration-line-through small me-2">
+                  ${{ cour.price }}
+                </span>
+
+                <span class="fw-bold text-success"> ${{ cour.price | discount: 0.2 }} </span>
 
                 @if (cour.seats == 0) {
                   <p class="text-danger fw-bold small mb-2 text-uppercase">Course Full</p>
@@ -45,8 +46,8 @@
                 } @else {
                   <p class="text-primary small mb-2">Available: {{ cour.seats }} seats</p>
                 }
-
-                <button
+                <!-- <button appProcessingButton  [duration]="5000" [processingText]="'Saving...'"> -->
+                  <button appProcessingButton
                   class="btn btn-primary btn-sm w-100"
                   (click)="Register(cour.id, cour.seats)"
                   [disabled]="cour.seats == 0"
