@@ -52,7 +52,8 @@
                   <p class="text-primary small mb-2">Available: {{ cour.seats }} seats</p>
                 }
 
-                <button
+                <button 
+                  appProcessingButton
                   class="btn btn-primary btn-sm w-100"
                   (click)="Register(cour.id, cour.seats)"
                   [disabled]="cour.seats == 0"
